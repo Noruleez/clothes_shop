@@ -1,0 +1,69 @@
+{% extends 'products/base.html' %}
+{% block title %}Svesh - {{ product.category }}{% endblock title %}
+{% block product %}
+<div class="col-lg-12 col-sm-12 mb-12">
+    <div class="product-card">
+        <form action="{% url 'add_product_to_cart' product.id %}" method="post">
+            {% csrf_token %}
+            <div class="product-card-photo">
+                <a href="#"><img src="{{ product.photo.url }}" alt=""></a>
+            </div>
+            <div class="product-card-details">
+                <div class="product-card-name">
+                    <h4>
+                        <a href="{{ product.get_absolute_url }}">
+                            {{ product.color }}
+                            {% if product.type != "Стандартная" %}
+                                {{ product.type }}
+                            {% endif %}
+                            {{ product.category }}
+                        </a>
+                    </h4>
+                </div>
+                <div class="product-card-size">
+                    <div class="product-card-size-left">
+                        <p> Размер -
+                                <label for="sizefor"></label>
+                                <select id="sizefor" type="text" name="size">
+                                    <option selected="selected">--- Выбрать ---</option>
+                                    {% for size in product.sizes.all %}
+                                        <option><a href="{% url 'product_size' size.url %}">{{ size.size }}</a></option>
+                                    {% endfor %}
+                                </select>
+                        </p>
+                    </div>
+                    <div class="product-card-size-right">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                    <h4><p class="text-danger">{{ message }}!</p></h4>
+                                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                                    <h4><p class="text-danger">{{ message }}!</p></h4>
+                                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                    <h4><p class="text-success">{{ message }}!</p></h4>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="product-card-gender">
+                    <p>{{ product.gender }}</p>
+                </div>
+                <div class="product-card-description">
+                    <p>{{ product.description }}</p>
+                </div>
+                <div class="product-card-bottom-details">
+                    <div class="product-card-price">
+                        {{ product.price }} руб.
+                    </div>
+                    <div class="product-card-links">
+                    <button class="btn btn-primary" type="submit">
+                        Добавить в корзину <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock product %}

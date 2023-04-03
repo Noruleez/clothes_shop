@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Svesh - Оформление заказа {% endblock title %}
+
+{% block content %}
+
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            {% if order_list %}
+                <div class="col-lg-12 col-sm-12 mb-12">
+                    <div class="card-header">
+                        <div>
+                        <h4>Заказ</h4>
+                        </div>
+                    </div>
+                    <div class="card">
+                        {% for order in order_list %}
+                            <div class="container">
+                                <div class="row card_item">
+
+                                    <div class="col-lg-3 col-sm-2 mb-3 cart_item_all_details">
+                                        <div class="card-item-img">
+                                            <a href="#"><img src="{{ order.product.photo.url }}" alt=""></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-sm-2 mb-3 cart_item_all_details">
+                                        <div class="card-item-name">
+                                            <p>{{ order.product.gender }} пол</p>
+                                            <p>{{ order.product.category }}</p>
+                                            <p>{{ order.product.type }}</p>
+                                            <p>Размер {{ order.size }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-2 mb-3 cart_item_all_details">
+                                        <div class="card-item-count">
+                                            <p>{{ order.amount }} шт.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-2 mb-3">
+                                        <div class="card-item-sum">
+                                            <p>{{ order.price }}руб.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <form action="{% url 'make_payment_order' order_list.0.order_number %}" method="post">
+                                        {% csrf_token %}
+                             <div class="row card_item">
+                                    <h4>Заполните данные</h4>
+                            </div>
+                             <div class="row card_item">
+                                <h5>Адрес доставки |
+                                    <label for="paymentorderfor"></label>
+                                    <input id="paymentorderfor" type="text" name="delivery_address">
+                                </h5>
+                            </div>
+                            <div class="row card_item">
+                                <h5>Время доставки |
+                                    <label for="paymentorderfor2"></label>
+                                    <select id="paymentorderfor2" type="text" name="delivery_period">
+                                        <option selected="selected">--- Выбрать ---</option>
+                                        <option selected="selected"> 10:00 - 12:00 </option>
+                                        <option selected="selected"> 12:00 - 14:00 </option>
+                                        <option selected="selected"> 14:00 - 16:00 </option>
+                                        <option selected="selected"> 16:00 - 18:00 </option>
+                                    </select>
+                                </h5>
+                            </div>
+                             <div class="row card_item">
+                                <h5>Номер телефона для связи |
+                                    <label for="paymentorderfor3"></label>
+                                    <input id="paymentorderfor3" type="text" name="phone_user">
+                                </h5>
+                            </div>
+                            <div class="row card_item">
+                                <div class="col-lg-4 col-sm-4 mb-4 cart_item_all_details">
+                                    <div class="card-item-img">
+                                        <h5>Общая сумма заказа - {{ order.|add:2 }} руб.</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4 mb-4 cart_item_all_details">
+                                    <div class="card-item-img">
+                                        <h5>Дата и время доставки</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4 mb-4 cart_item_all_details">
+                                    <div class="card-item-img">
+                                        <p><button value="" class="btn btn-primary" type="submit">
+                                            Перейти к оплате
+                                        </button></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                    <div class="col-lg-12 col-sm-12 mb-12">
+                        <div class="text-center">
+                            <h2>Заказ не был создан | Создать заказ можно из товаров в вашей
+                                <a href="{% url 'product_cart' %}">корзине</a>
+                            </h2>
+                        </div>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

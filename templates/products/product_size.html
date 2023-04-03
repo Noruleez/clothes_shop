@@ -1,0 +1,41 @@
+{% extends 'products/base.html' %}
+{% block title %}Svesh - {{ sizes.product.category }}{% endblock title %}
+{% block product %}
+<div class="col-lg-12 col-sm-6 mb-3">
+    <div class="product-card">
+        <div class="product-card-photo">
+            <a href="#"><img src="{{ sizes.product.photo.url }}" alt=""></a>
+        </div>
+        <div class="product-card-details">
+            <div class="product-card-name">
+                <h4>{{ sizes.product.color }} {{ sizes.product.category }}</h4>
+            </div>
+            <div class="product-card-size-current">
+                <div class="current-size">
+                    <p>Размер: {{ sizes.size }}</p>
+                </div>
+                <div class="back-to-choose-size">
+                    <p>
+                        <a href="{% url 'product_detail' sizes.product.url %}"><<< Вернуться к выбору размера</a>
+                    </p>
+                </div>
+            </div>
+            <div class="product-card-gender">
+                <h4>{{ sizes.product.gender }}</h4>
+            </div>
+            <div class="product-card-description">
+                <p>{{ sizes.product.description }}</p>
+            </div>
+            <div class="product-card-bottom-details">
+                <div class="product-card-price">
+                    {{ sizes.product.price }} руб.
+                </div>
+                <div class="product-card-links">
+                    <a href="">Добавить в корзину <i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock product %}

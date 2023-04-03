@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Svesh - Корзина {% endblock title %}
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 mb-12">
+                    <div class="text-center cart_to_existing_order">
+                        <h2>У вас уже есть неоплаченный заказ | Выберите действие</h2>
+                            <button class="btn btn-primary"><a href="{% url 'product_order' %}">Перейти к неоплаченному заказу</a></button>
+                             <form action="{% url 'delete_order' 0 %}" method="post">
+                                        {% csrf_token %}
+                                 <button type="text" name="size" value="0" class="btn btn-danger" type="submit">
+                                     Удалить неоплаченный заказ и вернуться в корзину</button>
+                             </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

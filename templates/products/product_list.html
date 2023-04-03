@@ -1,0 +1,47 @@
+{% extends 'products/base.html' %}
+{% block title %}Svesh - Товары {% endblock title %}
+{% block product %}
+    {% if product_list %}
+        {% for product in product_list %}
+            <div class="col-lg-6 col-sm-6 mb-6">
+                <div class="product-card-in-list">
+                    <div class="product-photo">
+                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.photo.url }}" alt=""></a>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-name">
+                            <h4>
+                                <a href="{{ product.get_absolute_url }}">{{ product.color }}
+                                    {% if product.type != "Стандартная" %}
+                                        {{ product.type }}
+                                    {% endif %}
+                                    {{ product.category }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="product-gender">
+                            <p>{{ product.gender }}</p>
+                        </div>
+                        <div class="product-description">
+                            <p class="">{{ product.description }}</p>
+                        </div>
+                        <div class="product-bottom-details">
+                            <div class="product-price">
+                                {{ product.price }} руб.
+                            </div>
+                            <div class="product-links">
+                                <a href="{{ product.get_absolute_url }}">Добавить в корзину <i class="fa-solid fa-cart-shopping"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-lg-6 col-sm-6 mb-3">
+            <div>
+                <h4>Товаров нет в наличии</h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock product %}

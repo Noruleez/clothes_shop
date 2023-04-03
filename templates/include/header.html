@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Svesh</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-1 mb-lg-0 left-menu">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'catalog' %}">Каталог</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-1 mb-lg-0 right-menu">
+        <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle" aria-current="page" data-bs-toggle="dropdown" href="#">
+                {% if user.is_authenticated %}
+                    {{ user.username }} | <i class="fa-regular fa-user"></i>
+                {% else %}
+                    Войти | Регистрация
+                {% endif %}
+            </a>
+            <ul class="dropdown-menu">
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Выйти с аккаунта</a></li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Войти в аккаунт</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Зарегистрироваться</a></li>
+                {% endif %}
+            </ul>
+        </li>
+        <li class="nav-item">
+            <!-- {#{% if user.is_authenticated %}#} -->
+                <a class="nav-link active" href="{% url 'product_cart' %}">
+                    Корзина |
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            <!-- {#{% else %}#} -->
+                <!-- <a class="nav-link active" href="{% url 'account_login' %}"> -->
+                    <!-- Корзина | -->
+                    <!-- <i class="fa-solid fa-cart-shopping"></i> -->
+                <!-- </a> -->
+            <!-- {#{% endif %}#} -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
