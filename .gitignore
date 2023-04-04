@@ -2,3 +2,4 @@
 /venvforpycharm
 /.idea
 git_token.txt
+/config/prod_settings.py
